@@ -1,7 +1,9 @@
+"use strict";
+
 function min(x, y) {
   if (x < y) {
     return x;
-  } else if (x == y) {
+  } else if (x === y) {
     return('no min');
   } else {
     return y;

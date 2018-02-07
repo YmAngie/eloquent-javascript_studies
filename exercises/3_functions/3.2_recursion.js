@@ -1,7 +1,9 @@
+"use strict";
+
 function isEven(num) {
-  if (num == 0) {
+  if (num === 0) {
     return true;
-  } else if (num == 1) {
+  } else if (num === 1) {
     return false;
   } else if (num < 0) {
     return ('num is negative');
