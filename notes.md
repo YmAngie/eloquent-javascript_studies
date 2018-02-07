@@ -62,7 +62,7 @@ console.log(minus(10, 5));
 
 #### 2. Default argument
 
-We can set the default value to the argument, which can be omitted by adding it like `argument = value`. 
+We can set the default value to the argument, which can be omitted, by adding it like `argument = value`. 
 
 
 ```javascript
@@ -82,4 +82,39 @@ console.log(power(2, 6));
 
 ## Chapter 4. Data Structures: Objects and Arrays
 
-#### 1. 
+#### 1. Adding the object (short-hand)
+
+Instead of declaring properties like `events: events`, we just give a property name. 
+
+```javascript
+let journal = [];
+
+function addEntry(events, squirrel) {
+  journal.push({events, squirrel});
+}
+addEntry(["work", "touched tree", "pizza", "running",
+          "television"], false);
+addEntry(["work", "ice cream", "cauliflower", "lasagna",
+          "touched tree", "brushed teeth"], false);
+addEntry(["weekend", "cycling", "break", "peanuts",
+          "beer"], true);
+console.log(journal);
+```
+
+#### 2. Rest parameters
+
+To make function accept any number of arguments, we can put three dots before the function’s last parameter.
+
+```javascript
+function max(...numbers) {
+  let result = -Infinity;
+  for (let number of numbers) {
+    if (number > result) result = number;
+  }
+  return result;
+}
+console.log(max(4, 1, 9, -2));
+// → 9
+```
+
+When such a function is called, the rest parameter is bound to an array containing all further arguments. If there are other parameters before it, their values aren’t part of that array. 
