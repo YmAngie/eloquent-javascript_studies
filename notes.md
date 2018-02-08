@@ -137,3 +137,22 @@ let [var1 = default, var2, ...rest] = array
 ```
 
 We can use existing variable and not only create new one. But in this way we have to use parentheses. 
+
+#### 4. Ternary operator in default parameter
+
+We can use ternary operator to set default values for function parameters.
+
+```javascript
+function range(start, end, step = start < end ? 1 : -1) {
+  //
+}
+```
+
+#### 5. Remember about the looping through an array!
+
+```javascript
+for (let value of array) {
+  sum += value;
+}
+```
+
