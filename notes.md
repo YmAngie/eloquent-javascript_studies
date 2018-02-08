@@ -118,3 +118,22 @@ console.log(max(4, 1, 9, -2));
 ```
 
 When such a function is called, the rest parameter is bound to an array containing all further arguments. If there are other parameters before it, their values aren’t part of that array. 
+
+#### 3. Destructuring
+
+Destructuring allows us to assign values from object or array to variables.
+
+```javascript
+let {prop : varName = default, ...} = object
+```
+
+**Colon (:)** allows us to assign the value of `prop` propery to the variable `varName` (can not be used with arrays, because of order significancy).
+
+**Equal sign (=)** gives a default value, if no value exist.
+
+
+```javascript
+let [var1 = default, var2, ...rest] = array
+```
+
+We can use existing variable and not only create new one. But in this way we have to use parentheses. 
