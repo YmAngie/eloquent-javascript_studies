@@ -156,3 +156,53 @@ for (let value of array) {
 }
 ```
 
+## Chapter 5. Higher-Ordered Functions
+
+#### 1. Arrow functions (*reminder*)
+
+Parenthesize are not necessary when using with one parameter
+```javascript
+(singleParam) => { statements }
+singleParam => { statements }
+```
+
+Function without parameters needs parenthesize
+```javascript
+() => { statements }
+() => expression 
+```
+
+Parenthesize the body to return an object literal expression
+```javascript
+params => ({foo: bar})
+```
+
+Arrow functions can have either a "concise body" or the usual "block body".
+In a concise body, only an expression is specified, which becomes the explicit return value. In a block body, you must use an explicit return statement.
+
+```javascript
+// Concise body syntax, implied "return"
+var func = x => x * x;                  
+
+// With block body, explicit "return" needed
+var func = (x, y) => { return x + y; }; 
+```
+
+Arrow functions do not have their own:
+
+- `this`, the `this` value of the enclosing execution context is used,
+- `arguments` object, thus, `arguments` will be simply a reference to the arguments of the enclosing scope
+
+
+
+
+
+
+
+
+
+
+
+
+
+
