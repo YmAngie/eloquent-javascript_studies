@@ -7,3 +7,5 @@ let flattenedArray = arrays.reduce(function(flattened, current) {
 });
                                    
 console.log(flattenedArray);
+
+// [1, 2, 3, 4, 5, 6]
