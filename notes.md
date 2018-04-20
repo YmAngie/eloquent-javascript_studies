@@ -326,7 +326,40 @@ console.log(stringObject[toStringSymbol]());
 ```
 
 
-#### 5. Inheritance
+#### 5. Getters, setters and statics
+
+- The `get` syntax binds an object property to a function that will be called when that property is looked up.
+- The `set` syntax binds an object property to a function to be called when there is an attempt to set that property.
+
+```javascript
+class Temperature {
+  constructor(celsius) {
+    this.celsius = celsius;
+  }
+  get fahrenheit() {
+    return this.celsius * 1.8 + 32;
+  }
+  set fahrenheit(value) {
+    this.celsius = (value - 32) / 1.8;
+  }
+
+  static fromFahrenheit(value) {
+    return new Temperature((value - 32) / 1.8);
+  }
+}
+
+let temp = new Temperature(22);
+console.log(temp.fahrenheit);
+// → 71.6
+temp.fahrenheit = 86;
+console.log(temp.celsius);
+// → 30
+```
+
+- **Static methods** are methods stored in a class’ constructor, rather than its prototype.
+
+
+#### 6. Inheritance
 
 - It's possible to create a new class, much like the old class, but with new definitions for some of its properties. 
 
@@ -339,12 +372,6 @@ class SymmetricMatrix extends Matrix {
   ...
 }
 ```
-
-
-#### 6. Static methods
-
-- **Static methods** are methods stored in a class’ constructor, rather than its prototype.
-
 
 
 
