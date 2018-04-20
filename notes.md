@@ -191,7 +191,164 @@ var func = (x, y) => { return x + y; };
 Arrow functions do not have their own:
 
 - `this`, the `this` value of the enclosing execution context is used,
-- `arguments` object, thus, `arguments` will be simply a reference to the arguments of the enclosing scope
+
+
+## Chapter 6. The Secret Life of Objects
+
+#### 1. Class declarations
+
+- The class declaration is equivalent to the constructor definition (but looks nicer).
+
+```javascript
+class Rabbit {
+  // constructor function
+  constructor(type) {
+    this.type = type;
+  }
+  // constructor's prototype
+  speak(line) {
+    console.log(`The ${this.type} rabbit says '${line}'`);
+  }
+}
+
+let killerRabbit = new Rabbit("killer");
+let blackRabbit = new Rabbit("black");
+```
+
+- Class declarations only allow methods—properties that hold functions—to be added to the prototype. 
+We can still create such properties by directly manipulating the prototype after we defined the class.
+
+- Class can be used both in statement and in expression positions. When used as an expression, it doesn’t define a binding, but just produces the constructor as a value. 
+We are allowed to omit the class name in a class expression.
+
+```javascript
+let object = new class { getWord() { return "hello"; } };
+console.log(object.getWord());
+// → hello
+```
+
+#### 2. Maps
+
+**A map** (noun) is a data structure that associates values (the keys) with other values. 
+For example, we might want to map names to ages. It is possible to use objects for this:
+
+```javascript
+let ages = {
+  // property name: property value
+  Boris: 39,
+  Liang: 22,
+  Júlia: 62
+};
+```
+
+- But in this situation object method `toString()` will be stored in the object as one of the properties. 
+This can disorientate while working with such an object. To avoid it we can pass `null` to `Object.create`:
+
+```javascript
+console.log("toString" in Object.create(null));
+// → false
+```
+
+- But more correct way is to use a special class `Map`. It  allows any type of keys and has next methods: `set`, `get`, `has`.
+
+```javascript
+let ages = new Map();
+ages.set("Boris", 39);
+ages.set("Liang", 22);
+ages.set("Júlia", 62);
+
+console.log(`Júlia is ${ages.get("Júlia")}`);
+// → Júlia is 62
+console.log("Is Jack's age known?", ages.has("Jack"));
+// → Is Jack's age known? false
+console.log("Is toString's age known?", ages.has("toString"));
+// → Is toString's age known? false
+console.log("Is toString's age known?", "toString" in ages);
+// → Is toString's age known? true
+```
+
+- `Object.keys` only returns an object’s own keys, not those in the prototype. 
+- `hasOwnProperty` method ignores the object’s prototype.
+
+```javascript
+console.log({x: 1}.hasOwnProperty("x"));
+// → true
+console.log({x: 1}.hasOwnProperty("toString"));
+// → false
+console.log(Object.keys({x: 1}));
+// → ["x"]
+```
+
+#### 3. Polymorphism
+
+- **Polymorphism** - is one of the tenets of Object Oriented Programming (OOP). 
+
+- It is the practice of designing objects to share behaviors and to be able *to override shared behaviors with specific ones*.
+
+
+#### 4. Symbols
+
+- The property names are strings (usually, but no always). So they can also be symbols. 
+
+- **Symbols** are values created with the `Symbol` function. Unlike strings, newly created symbols are unique — we cannot create the same symbol twice.
+
+```javascript
+let sym = Symbol("name");
+console.log(sym == Symbol("name"));
+// → false
+Rabbit.prototype[sym] = 55;
+console.log(blackRabbit[sym]);
+// → 55
+```
+
+- Symbols are suitable for defining interfaces that can peacefully live alongside other properties, no matter what their names are.
+
+```javascript
+const toStringSymbol = Symbol("toString");
+Array.prototype[toStringSymbol] = function() {
+  return `${this.length} cm of blue yarn`;
+};
+​
+console.log([1, 2].toString());
+// → 1,2
+console.log([1, 2][toStringSymbol]());
+// → 2 cm of blue yarn
+```
+
+- It is possible to include symbol properties in object expressions and classes by using square brackets around the property name.
+
+```javascript
+let stringObject = {
+  [toStringSymbol]() { return "a jute rope"; }
+};
+console.log(stringObject[toStringSymbol]());
+// → a jute rope
+```
+
+
+#### 5. Inheritance
+
+- It's possible to create a new class, much like the old class, but with new definitions for some of its properties. 
+
+- The prototype for the new class derives from the old prototype but adds a new definition for picked method.
+
+- The new class inherits properties and behavior from the old class.
+
+```javascript
+class SymmetricMatrix extends Matrix {
+  ...
+}
+```
+
+
+#### 6. Static methods
+
+- **Static methods** are methods stored in a class’ constructor, rather than its prototype.
+
+
+
+
+
 
 
 
